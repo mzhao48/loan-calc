@@ -1,16 +1,28 @@
 import './LoanCalculator.css';
+import LoanJS from "loanjs";
 
 export default function LoanCalculator() {
-  return (
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        calculate(10000,30,4);
+    }
+    
+    const calculate = (amount: number, years: number, rate: number) => {
+        var loan = new LoanJS.Loan(amount, years * 12, rate)
+        console.log(loan)
+    }
+
+    return (
     <div className="loan-calculator-container">
       <h1>Loan Calculator</h1>
-      <form>
+      
+      <form onSubmit = { handleSubmit }>
         <div className="form-item">
             <label htmlFor='loan-amount'>Loan Amount</label>
             <div className="form-input">
                 <input 
                     type="number"
-                    name="loan-amount"
+                    name="loan-amount" 
                     placeholder="0"
                 />
             </div>
