@@ -3,11 +3,27 @@ import LoanJS from "loanjs";
 import { useState } from "react";
 
 export default function LoanCalculator() {
+    const [values, setValues] = useState({
+        "loan-amount": 0,
+        "loan-term": 0,
+        "interest-rate": 0,
+    })
     const [installments, setInstallments] = useState([]);
     
+    const handleInputChange = (event: any) => {
+        const { name, value } = event.target;
+        
+        setValues({
+            ...values,
+            [name]: value
+        })
+
+        console.log(values)
+    }
+
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        calculate(10000,30,4);
+        calculate(values['loan-amount'], values['loan-term'], values['interest-rate']);
     } 
     
     const calculate = (amount: number, years: number, rate: number) => {
@@ -34,6 +50,8 @@ export default function LoanCalculator() {
                     type="number"
                     name="loan-amount" 
                     placeholder="0"
+                    value={ values["loan-amount"] }
+                    onChange={ handleInputChange }
                 />
             </div>
         </div>
@@ -42,8 +60,10 @@ export default function LoanCalculator() {
             <div className="form-input">
                 <input 
                     type="number"
-                    name="interest-rate-amount"
+                    name="interest-rate"
                     placeholder="0"
+                    value={ values["interest-rate"] }
+                    onChange={ handleInputChange }
                 />
             </div>
         </div>
@@ -54,6 +74,8 @@ export default function LoanCalculator() {
                     type="number"
                     name="loan-term"
                     placeholder="0"
+                    value={ values["loan-term"] }
+                    onChange={ handleInputChange }
                 />
             </div>
         </div>
